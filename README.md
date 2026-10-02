@@ -55,6 +55,21 @@ mvn clean package
 
 The shaded JAR will be at `target/flink-roaringbitmap-0.1.0-SNAPSHOT.jar`.
 
+## Using Fluss? Native Functions Available
+
+If you are using [Apache Fluss](https://fluss.apache.org/) 1.0 or later, these functions are 
+already built into `FlussCatalog`. No JAR download or `CREATE TEMPORARY FUNCTION` statement needed:
+
+```sql
+USE CATALOG fluss_catalog;
+
+-- All rb_ functions are available immediately
+SELECT rb_cardinality(rb_build_agg(user_id)) FROM events GROUP BY dimension;
+```
+
+See the [Fluss SQL Functions documentation](https://fluss.apache.org/docs/engine-flink/sql-functions/) 
+for the full reference including `rb_xor_agg`, `rb_xor`, `rb_andnot`, and 9 other functions.
+
 ## License
 
 This project is licensed under the [Apache License 2.0](LICENSE).
